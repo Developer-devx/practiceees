@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Hackathon Certificate - {{name}}</title>
+
+<style>
+
+@page {
+    size: A4 landscape;
+    margin: 0;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: #020604;
+    font-family: "Courier New", monospace;
+}
+
+/* =========================================
+   CERTIFICATE
+========================================= */
+
+.certificate {
+
+    width: 1123px;
+    height: 794px;
+
+    margin: 30px auto;
+
+    position: relative;
+
+    overflow: hidden;
+
+    color: #00ff66;
+
+    background:
+
+        linear-gradient(
+            rgba(0,255,100,0.035) 1px,
+            transparent 1px
+        ),
+
+        linear-gradient(
+            90deg,
+            rgba(0,255,100,0.035) 1px,
+            transparent 1px
+        ),
+
+        radial-gradient(
+            circle at center,
+            #062414 0%,
+            #020a05 45%,
+            #010302 100%
+        );
+
+    background-size:
+        25px 25px,
+        25px 25px,
+        100% 100%;
+
+    border: 10px solid #03150a;
+
+    box-shadow:
+
+        0 0 0 2px #00ff66,
+
+        0 0 30px rgba(0,255,100,0.35),
+
+        inset 0 0 80px rgba(0,255,100,0.08);
+
+}
+
+/* =========================================
+   MATRIX RAIN
+========================================= */
+
+.matrix {
+    position: absolute;
+
+    inset: 0;
+
+    overflow: hidden;
+
+    opacity: 0.12;
+
+    color: #00ff66;
+
+    font-size: 15px;
+
+    line-height: 18px;
+
+    white-space: pre;
+
+    pointer-events: none;
+}
+
+.matrix::before {
+
+    content:
+    "01001001 01101110 01101110 01101111 01110110 01100001 01110100 01100101 00100000
+     01000011 01110010 01100101 01100001 01110100 01100101 00100000
+     01001000 01100001 01100011 01101011 00100000
+     01010010 01100101 01110000 01100101 01100001 01110100
+     01000100 01100101 01110110 00100000
+     01010000 01110010 01101111 01100111 01110010 01100001 01101101";
+
+    position: absolute;
+
+    inset: 0;
+
+    word-spacing: 12px;
+
+    animation: matrixMove 15s linear infinite;
+
+}
+
+@keyframes matrixMove {
+
+    from {
+        transform: translateY(-100px);
+    }
+
+    to {
+        transform: translateY(100px);
+    }
+
+}
+
+/* =========================================
+   CORNERS
+========================================= */
+
+.corner {
+
+    position: absolute;
+
+    width: 65px;
+    height: 65px;
+
+    border-color: #00ff66;
+
+}
+
+.corner.tl {
+
+    top: 25px;
+    left: 25px;
+
+    border-top: 2px solid;
+    border-left: 2px solid;
+
+}
+
+.corner.tr {
+
+    top: 25px;
+    right: 25px;
+
+    border-top: 2px solid;
+    border-right: 2px solid;
+
+}
+
+.corner.bl {
+
+    bottom: 25px;
+    left: 25px;
+
+    border-bottom: 2px solid;
+    border-left: 2px solid;
+
+}
+
+.corner.br {
+
+    bottom: 25px;
+    right: 25px;
+
+    border-bottom: 2px solid;
+    border-right: 2px solid;
+
+}
+
+/* =========================================
+   CONTENT
+========================================= */
+
+.content {
+
+    position: relative;
+
+    z-index: 5;
+
+    height: 100%;
+
+    padding: 60px 85px;
+
+    text-align: center;
+
+}
+
+/* =========================================
+   BRAND
+========================================= */
+
+.brand {
+
+    display: inline-block;
+
+    padding: 7px 20px;
+
+    border: 1px solid #00ff66;
+
+    color: #00ff66;
+
+    font-size: 15px;
+
+    font-weight: bold;
+
+    letter-spacing: 5px;
+
+    box-shadow:
+        0 0 15px rgba(0,255,100,0.25);
+
+}
+
+.brand::before {
+
+    content: "> ";
+
+}
+
+.brand::after {
+
+    content: " <";
+
+}
+
+/* =========================================
+   SYSTEM STATUS
+========================================= */
+
+.status {
+
+    margin-top: 12px;
+
+    color: #3aff83;
+
+    font-size: 9px;
+
+    letter-spacing: 3px;
+
+}
+
+.status span {
+
+    color: #00ff66;
+
+    animation: blink 1s infinite;
+
+}
+
+@keyframes blink {
+
+    50% {
+        opacity: 0.3;
+    }
+
+}
+
+/* =========================================
+   TITLE
+========================================= */
+
+.title {
+
+    margin: 30px 0 5px;
+
+    font-size: 62px;
+
+    font-weight: 900;
+
+    letter-spacing: 7px;
+
+    text-transform: uppercase;
+
+    color: #d8ffe6;
+
+    text-shadow:
+
+        0 0 8px #00ff66,
+
+        0 0 25px rgba(0,255,100,0.45);
+
+}
+
+.subtitle {
+
+    font-size: 14px;
+
+    letter-spacing: 8px;
+
+    color: #00ff66;
+
+}
+
+/* =========================================
+   PRESENTED TEXT
+========================================= */
+
+.presented {
+
+    margin-top: 42px;
+
+    font-size: 10px;
+
+    letter-spacing: 4px;
+
+    color: #6bca91;
+
+}
+
+/* =========================================
+   NAME
+========================================= */
+
+.name {
+
+    margin: 12px 0;
+
+    font-family: Georgia, serif;
+
+    font-size: 48px;
+
+    font-weight: bold;
+
+    color: #eafff0;
+
+    text-shadow:
+
+        0 0 10px rgba(0,255,100,0.7);
+
+}
+
+.name-line {
+
+    width: 520px;
+
+    max-width: 80%;
+
+    height: 1px;
+
+    margin: auto;
+
+    background:
+
+        linear-gradient(
+            90deg,
+            transparent,
+            #00ff66,
+            transparent
+        );
+
+    box-shadow:
+
+        0 0 10px #00ff66;
+
+}
+
+/* =========================================
+   DESCRIPTION
+========================================= */
+
+.description {
+
+    max-width: 760px;
+
+    margin: 25px auto 0;
+
+    font-size: 14px;
+
+    line-height: 1.8;
+
+    color: #9bd9b0;
+
+}
+
+.description strong {
+
+    color: #00ff66;
+
+}
+
+/* =========================================
+   CATEGORY
+========================================= */
+
+.category {
+
+    display: inline-block;
+
+    margin-top: 18px;
+
+    padding: 8px 25px;
+
+    border: 1px solid #00ff66;
+
+    color: #00ff66;
+
+    background: rgba(0,255,100,0.05);
+
+    font-size: 10px;
+
+    letter-spacing: 3px;
+
+    box-shadow:
+
+        0 0 15px rgba(0,255,100,0.15);
+
+}
+
+/* =========================================
+   TERMINAL BOX
+========================================= */
+
+.terminal {
+
+    position: absolute;
+
+    top: 35px;
+
+    right: 50px;
+
+    font-size: 8px;
+
+    color: #2aff75;
+
+    text-align: left;
+
+    line-height: 1.6;
+
+}
+
+.terminal::before {
+
+    content: "[ SYSTEM ONLINE ]";
+
+    display: block;
+
+    color: #00ff66;
+
+}
+
+/* =========================================
+   BOTTOM
+========================================= */
+
+.bottom {
+
+    position: absolute;
+
+    left: 85px;
+
+    right: 85px;
+
+    bottom: 48px;
+
+    display: flex;
+
+    align-items: end;
+
+    justify-content: space-between;
+
+    text-align: left;
+
+}
+
+/* =========================================
+   INFO
+========================================= */
+
+.info {
+
+    font-size: 9px;
+
+    color: #579b6c;
+
+    line-height: 1.8;
+
+}
+
+.info strong {
+
+    color: #00ff66;
+
+}
+
+/* =========================================
+   VERIFIED SEAL
+========================================= */
+
+.seal-container {
+
+    text-align: center;
+
+}
+
+.seal {
+
+    width: 82px;
+
+    height: 82px;
+
+    border-radius: 50%;
+
+    border: 2px solid #00ff66;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    margin: auto;
+
+    color: #00ff66;
+
+    font-size: 30px;
+
+    box-shadow:
+
+        0 0 10px rgba(0,255,100,0.4),
+
+        inset 0 0 15px rgba(0,255,100,0.15);
+
+}
+
+.seal-text {
+
+    margin-top: 7px;
+
+    color: #52b875;
+
+    font-size: 7px;
+
+    letter-spacing: 2px;
+
+}
+
+/* =========================================
+   SIGNATURE
+========================================= */
+
+.signature {
+
+    text-align: center;
+
+    color: #5da876;
+
+    font-size: 9px;
+
+    letter-spacing: 2px;
+
+}
+
+.signature-line {
+
+    width: 170px;
+
+    height: 1px;
+
+    margin-bottom: 8px;
+
+    background: #00ff66;
+
+}
+
+/* =========================================
+   CERTIFICATE ID
+========================================= */
+
+.certificate-id {
+
+    position: absolute;
+
+    left: 45px;
+
+    top: 42px;
+
+    font-size: 8px;
+
+    color: #3f8155;
+
+    letter-spacing: 1px;
+
+}
+
+/* =========================================
+   SCAN LINE
+========================================= */
+
+.scanline {
+
+    position: absolute;
+
+    left: 0;
+
+    right: 0;
+
+    height: 1px;
+
+    background: rgba(0,255,100,0.2);
+
+    animation: scan 6s linear infinite;
+
+    z-index: 3;
+
+}
+
+@keyframes scan {
+
+    from {
+        top: 0;
+    }
+
+    to {
+        top: 100%;
+    }
+
+}
+
+/* =========================================
+   PRINT
+========================================= */
+
+@media print {
+
+    body {
+        background: white;
+    }
+
+    .certificate {
+
+        margin: 0;
+
+        box-shadow:
+            0 0 0 2px #00ff66;
+
+        width: 1123px;
+
+        height: 794px;
+
+    }
+
+    .scanline {
+        display: none;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="certificate">
+
+    <!-- MATRIX BACKGROUND -->
+
+    <div class="matrix"></div>
+
+    <!-- SCAN EFFECT -->
+
+    <div class="scanline"></div>
+
+    <!-- CORNERS -->
+
+    <div class="corner tl"></div>
+    <div class="corner tr"></div>
+    <div class="corner bl"></div>
+    <div class="corner br"></div>
+
+    <!-- CERTIFICATE ID -->
+
+    <div class="certificate-id">
+
+        CERT-ID: {{certificate_id}}
+
+    </div>
+
+    <!-- TERMINAL -->
+
+    <div class="terminal">
+
+        root@hackcert:~$ verify<br>
+
+        access_granted<br>
+
+        certificate_valid
+
+    </div>
+
+
+    <div class="content">
+
+        <!-- BRAND -->
+
+        <div class="brand">
+
+            HACKCERT
+
+        </div>
+
+        <div class="status">
+
+            ● SYSTEM STATUS:
+            <span>ONLINE</span>
+
+        </div>
+
+
+        <!-- TITLE -->
+
+        <h1 class="title">
+
+            Certificate
+
+        </h1>
+
+        <div class="subtitle">
+
+            OF PARTICIPATION
+
+        </div>
+
+
+        <!-- PRESENTED -->
+
+        <div class="presented">
+
+            // THIS CERTIFICATE IS PROUDLY PRESENTED TO
+
+        </div>
+
+
+        <!-- NAME -->
+
+        <div class="name">
+
+            {{name}}
+
+        </div>
+
+        <div class="name-line"></div>
+
+
+        <!-- DESCRIPTION -->
+
+        <div class="description">
+
+            For successfully participating in
+
+            <strong>
+                {{event}}
+            </strong>
+
+            and demonstrating exceptional
+            creativity, technical ability,
+            teamwork and problem-solving
+            skills during the hackathon.
+
+        </div>
+
+
+        <!-- CATEGORY -->
+
+        <div class="category">
+
+            {{category}}
+
+        </div>
+
+
+        <!-- BOTTOM -->
+
+        <div class="bottom">
+
+
+            <!-- PARTICIPANT INFO -->
+
+            <div class="info">
+
+                <strong>PARTICIPANT_ID</strong><br>
+
+                {{participant_id}}
+
+                <br><br>
+
+                <strong>ISSUED_DATE</strong><br>
+
+                {{date}}
+
+            </div>
+
+
+            <!-- VERIFIED -->
+
+            <div class="seal-container">
+
+                <div class="seal">
+
+                    ✓
+
+                </div>
+
+                <div class="seal-text">
+
+                    VERIFIED
+
+                </div>
+
+            </div>
+
+
+            <!-- SIGNATURE -->
+
+            <div class="signature">
+
+                <div class="signature-line"></div>
+
+                EVENT DIRECTOR
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>
