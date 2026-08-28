@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube UI Layout</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: Arial, sans-serif; }
+        body { display: flex; flex-direction: column; height: 100vh; background-color: #f9f9f9; }
+        
+        /* Navbar */
+        header { display: flex; justify-content: space-between; align-items: center; padding: 10px 20px; background: #fff; border-bottom: 1px solid #e5e5e5; position: sticky; top: 0; z-index: 100; }
+        .logo { font-size: 20px; font-weight: bold; color: #ff0000; text-decoration: none; }
+        .search-bar { display: flex; width: 40%; }
+        .search-bar input { width: 100%; padding: 8px 12px; border: 1px solid #ccc; border-radius: 20px 0 0 20px; outline: none; }
+        .search-bar button { padding: 8px 15px; border: 1px solid #ccc; border-left: none; border-radius: 0 20px 20px 0; background: #f8f8f8; cursor: pointer; }
+        .user-icons { display: flex; gap: 15px; }
+
+        /* Main Container */
+        .container { display: flex; flex: 1; overflow: hidden; }
+
+        /* Sidebar */
+        aside { width: 220px; background: #fff; padding: 15px; border-right: 1px solid #e5e5e5; display: flex; flex-direction: column; gap: 15px; }
+        aside a { text-decoration: none; color: #0f0f0f; font-size: 14px; padding: 8px 10px; border-radius: 8px; }
+        aside a:hover { background: #f2f2f2; }
+
+        /* Video Feed Grid */
+        main { flex: 1; padding: 20px; overflow-y: auto; display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; align-content: start; }
+        
+        /* Video Card */
+        .video-card { display: flex; flex-direction: column; gap: 10px; }
+        .thumbnail { width: 100%; aspect-ratio: 16/9; background-color: #ccc; border-radius: 12px; object-fit: cover; }
+        .details { display: flex; gap: 10px; }
+        .avatar { width: 36px; height: 36px; background-color: #777; border-radius: 50%; flex-shrink: 0; }
+        .info h3 { font-size: 14px; line-height: 1.3; margin-bottom: 4px; color: #0f0f0f; }
+        .info p { font-size: 12px; color: #606060; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="#" class="logo">YouTube</a>
+        <div class="search-bar">
+            <input type="text" placeholder="Search">
+            <button>🔍</button>
+        </div>
+        <div class="user-icons">
+            <span>📹</span>
+            <span>🔔</span>
+            <span>👤</span>
+        </div>
+    </header>
+
+    <div class="container">
+        <aside>
+            <a href="#">🏠 Home</a>
+            <a href="#">🩳 Shorts</a>
+            <a href="#">📺 Subscriptions</a>
+            <hr>
+            <a href="#">📚 Library</a>
+            <a href="#">🕒 History</a>
+        </aside>
+
+        <main>
+            <div class="video-card">
+                <img class="thumbnail" src="https://via.placeholder.com/320x180" alt="Thumbnail">
+                <div class="details">
+                    <div class="avatar"></div>
+                    <div class="info">
+                        <h3>Sample Video Title goes here with two lines text max</h3>
+                        <p>Channel Name</p>
+                        <p>100K views • 2 days ago</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <img class="thumbnail" src="https://via.placeholder.com/320x180" alt="Thumbnail">
+                <div class="details">
+                    <div class="avatar"></div>
+                    <div class="info">
+                        <h3>Building a YouTube Clone with Pure HTML & CSS</h3>
+                        <p>Dev Channel</p>
+                        <p>1M views • 1 month ago</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <img class="thumbnail" src="https://via.placeholder.com/320x180" alt="Thumbnail">
+                <div class="details">
+                    <div class="avatar"></div>
+                    <div class="info">
+                        <h3>Learn Web Development in 2026</h3>
+                        <p>Code Master</p>
+                        <p>500K views • 3 weeks ago</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+</body>
+</html>
