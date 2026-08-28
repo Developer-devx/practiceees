@@ -1,0 +1,1116 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>InterviewAI — Personal AI Interview Coach</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --bg: #070914;
+    --card: rgba(255,255,255,0.06);
+    --border: rgba(255,255,255,0.1);
+    --text: #f5f7ff;
+    --muted: #9298ad;
+    --primary: #7c5cff;
+    --secondary: #00d4ff;
+    --success: #35e69a;
+    --danger: #ff5d7a;
+}
+
+body {
+    font-family: Inter, Arial, sans-serif;
+    background:
+        radial-gradient(circle at 15% 10%, rgba(124,92,255,.18), transparent 30%),
+        radial-gradient(circle at 85% 20%, rgba(0,212,255,.12), transparent 30%),
+        var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+}
+
+/* SIDEBAR */
+
+.sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 250px;
+    height: 100vh;
+    padding: 25px 18px;
+    background: rgba(7,9,20,.82);
+    backdrop-filter: blur(25px);
+    border-right: 1px solid var(--border);
+    z-index: 10;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 22px;
+    font-weight: 800;
+    margin-bottom: 40px;
+}
+
+.logo-icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 12px;
+    display: grid;
+    place-items: center;
+    background: linear-gradient(135deg,var(--primary),var(--secondary));
+    box-shadow: 0 0 30px rgba(124,92,255,.4);
+}
+
+.nav-title {
+    font-size: 11px;
+    color: var(--muted);
+    margin: 20px 12px 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.nav-item {
+    padding: 12px 14px;
+    margin: 5px 0;
+    border-radius: 12px;
+    color: var(--muted);
+    cursor: pointer;
+    transition: .25s;
+}
+
+.nav-item:hover,
+.nav-item.active {
+    background: rgba(124,92,255,.15);
+    color: white;
+}
+
+.nav-item span {
+    margin-right: 10px;
+}
+
+/* MAIN */
+
+.main {
+    margin-left: 250px;
+    padding: 28px;
+}
+
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 28px;
+}
+
+.search {
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 12px 18px;
+    border-radius: 14px;
+    color: white;
+    width: 280px;
+}
+
+.profile {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.avatar-small {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: linear-gradient(135deg,#7c5cff,#00d4ff);
+    display: grid;
+    place-items: center;
+    font-weight: bold;
+}
+
+/* HERO */
+
+.hero {
+    padding: 35px;
+    border: 1px solid var(--border);
+    border-radius: 25px;
+    background:
+        linear-gradient(120deg,
+        rgba(124,92,255,.14),
+        rgba(0,212,255,.04)),
+        var(--card);
+    position: relative;
+    overflow: hidden;
+}
+
+.hero h1 {
+    font-size: 38px;
+    max-width: 650px;
+    line-height: 1.15;
+}
+
+.hero p {
+    color: var(--muted);
+    margin: 15px 0 25px;
+    max-width: 600px;
+    line-height: 1.6;
+}
+
+.btn {
+    border: none;
+    padding: 13px 20px;
+    border-radius: 12px;
+    color: white;
+    cursor: pointer;
+    font-weight: 600;
+    transition: .25s;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg,var(--primary),#5c8cff);
+    box-shadow: 0 10px 30px rgba(124,92,255,.25);
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+}
+
+.btn-secondary {
+    background: rgba(255,255,255,.07);
+    border: 1px solid var(--border);
+}
+
+/* AI ORB */
+
+.ai-orb {
+    position: absolute;
+    right: 8%;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 190px;
+    height: 190px;
+    border-radius: 50%;
+    background:
+        radial-gradient(circle at 35% 30%, #fff, transparent 5%),
+        radial-gradient(circle at 50% 50%, #7c5cff, #22155e 55%, #050511 75%);
+    box-shadow:
+        0 0 50px rgba(124,92,255,.7),
+        inset 0 0 40px rgba(0,212,255,.4);
+    animation: float 4s ease-in-out infinite;
+}
+
+.ai-orb::before,
+.ai-orb::after {
+    content: "";
+    position: absolute;
+    inset: -18px;
+    border-radius: 50%;
+    border: 1px solid rgba(124,92,255,.35);
+    animation: spin 8s linear infinite;
+}
+
+.ai-orb::after {
+    inset: -35px;
+    border-color: rgba(0,212,255,.2);
+    animation-duration: 12s;
+}
+
+@keyframes float {
+    50% { transform: translateY(-55%) scale(1.04); }
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* GRID */
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    gap: 18px;
+    margin-top: 20px;
+}
+
+.card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 22px;
+    backdrop-filter: blur(20px);
+}
+
+.stat-title {
+    color: var(--muted);
+    font-size: 13px;
+}
+
+.stat-number {
+    font-size: 32px;
+    font-weight: 800;
+    margin: 10px 0;
+}
+
+.progress {
+    height: 6px;
+    background: rgba(255,255,255,.08);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg,var(--primary),var(--secondary));
+    border-radius: 10px;
+}
+
+/* CONTENT GRID */
+
+.content-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.section-title {
+    font-size: 18px;
+    margin-bottom: 18px;
+}
+
+.recommendation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px;
+    border-radius: 15px;
+    background: rgba(255,255,255,.04);
+    margin-bottom: 12px;
+}
+
+.recommendation small {
+    color: var(--muted);
+}
+
+.badge {
+    padding: 6px 10px;
+    background: rgba(53,230,154,.12);
+    color: var(--success);
+    border-radius: 20px;
+    font-size: 11px;
+}
+
+/* CIRCLE SCORE */
+
+.score-container {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+.score-circle {
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background:
+        radial-gradient(circle, var(--bg) 58%, transparent 59%),
+        conic-gradient(var(--primary) 84%, rgba(255,255,255,.08) 0);
+}
+
+.score-circle strong {
+    font-size: 30px;
+}
+
+/* UPLOAD */
+
+.upload-area {
+    border: 2px dashed rgba(124,92,255,.4);
+    border-radius: 18px;
+    padding: 30px;
+    text-align: center;
+    margin-top: 20px;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.upload-area:hover {
+    background: rgba(124,92,255,.08);
+}
+
+.upload-area input {
+    display: none;
+}
+
+/* INTERVIEW MODAL */
+
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.75);
+    backdrop-filter: blur(10px);
+    z-index: 100;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-box {
+    width: min(850px,92%);
+    background: #0c1020;
+    border: 1px solid var(--border);
+    border-radius: 25px;
+    padding: 30px;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 25px;
+}
+
+.close {
+    font-size: 25px;
+    cursor: pointer;
+    color: var(--muted);
+}
+
+.interview-options {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 12px;
+}
+
+.option {
+    padding: 20px;
+    border: 1px solid var(--border);
+    border-radius: 15px;
+    cursor: pointer;
+    transition: .2s;
+}
+
+.option:hover,
+.option.selected {
+    border-color: var(--primary);
+    background: rgba(124,92,255,.1);
+}
+
+.option h3 {
+    margin-bottom: 7px;
+}
+
+.option p {
+    color: var(--muted);
+    font-size: 12px;
+}
+
+/* LIVE INTERVIEW */
+
+.live {
+    text-align: center;
+}
+
+.live-orb {
+    margin: 20px auto;
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    background:
+        radial-gradient(circle at 35% 30%,white,transparent 5%),
+        radial-gradient(circle,#00d4ff,#18316b 50%,#050511 75%);
+    box-shadow: 0 0 70px rgba(0,212,255,.5);
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    50% {
+        transform: scale(1.06);
+        box-shadow: 0 0 100px rgba(0,212,255,.7);
+    }
+}
+
+.question {
+    font-size: 23px;
+    max-width: 650px;
+    margin: 25px auto;
+    line-height: 1.5;
+}
+
+.wave {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    height: 55px;
+}
+
+.wave span {
+    width: 5px;
+    height: 20px;
+    border-radius: 5px;
+    background: linear-gradient(var(--primary),var(--secondary));
+    animation: wave 1s infinite ease-in-out;
+}
+
+.wave span:nth-child(2){animation-delay:.1s}
+.wave span:nth-child(3){animation-delay:.2s}
+.wave span:nth-child(4){animation-delay:.3s}
+.wave span:nth-child(5){animation-delay:.4s}
+.wave span:nth-child(6){animation-delay:.5s}
+.wave span:nth-child(7){animation-delay:.6s}
+.wave span:nth-child(8){animation-delay:.7s}
+
+@keyframes wave {
+    50% { height: 48px; }
+}
+
+.controls {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 25px;
+}
+
+.mic {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: none;
+    background: linear-gradient(135deg,var(--primary),var(--secondary));
+    color: white;
+    font-size: 22px;
+    cursor: pointer;
+}
+
+/* MOBILE */
+
+@media(max-width:1000px) {
+    .grid {
+        grid-template-columns: repeat(2,1fr);
+    }
+
+    .content-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .ai-orb {
+        opacity: .3;
+        right: -50px;
+    }
+}
+
+@media(max-width:700px) {
+    .sidebar {
+        width: 70px;
+        padding: 20px 10px;
+    }
+
+    .logo span,
+    .nav-item span:last-child,
+    .nav-title {
+        display:none;
+    }
+
+    .nav-item {
+        text-align:center;
+    }
+
+    .main {
+        margin-left:70px;
+        padding:15px;
+    }
+
+    .hero h1 {
+        font-size:28px;
+    }
+
+    .ai-orb {
+        display:none;
+    }
+
+    .grid {
+        grid-template-columns:1fr;
+    }
+
+    .interview-options {
+        grid-template-columns:1fr;
+    }
+
+    .search {
+        display:none;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+
+<aside class="sidebar">
+
+    <div class="logo">
+        <div class="logo-icon">AI</div>
+        <span>InterviewAI</span>
+    </div>
+
+    <div class="nav-title">Workspace</div>
+
+    <div class="nav-item active">
+        <span>⌂</span> <span>Dashboard</span>
+    </div>
+
+    <div class="nav-item">
+        <span>🎤</span> <span>Practice</span>
+    </div>
+
+    <div class="nav-item">
+        <span>📄</span> <span>Resume</span>
+    </div>
+
+    <div class="nav-item">
+        <span>💼</span> <span>Job Match</span>
+    </div>
+
+    <div class="nav-item">
+        <span>📊</span> <span>Analytics</span>
+    </div>
+
+    <div class="nav-title">Account</div>
+
+    <div class="nav-item">
+        <span>🤖</span> <span>AI Coach</span>
+    </div>
+
+    <div class="nav-item">
+        <span>⚙</span> <span>Settings</span>
+    </div>
+
+</aside>
+
+
+<!-- MAIN -->
+
+<main class="main">
+
+    <div class="topbar">
+
+        <input class="search" placeholder="Search interviews...">
+
+        <div class="profile">
+            <div>
+                <strong>Mahommed</strong><br>
+                <small style="color:#9298ad">AI Candidate</small>
+            </div>
+
+            <div class="avatar-small">M</div>
+        </div>
+
+    </div>
+
+
+    <!-- HERO -->
+
+    <section class="hero">
+
+        <h1>
+            Become interview-ready with your
+            <span style="color:#8b72ff">personal AI coach.</span>
+        </h1>
+
+        <p>
+            Practice realistic interviews using your resume and target job.
+            Your AI interviewer remembers your weaknesses and continuously
+            adapts your training.
+        </p>
+
+        <button class="btn btn-primary" onclick="openInterview()">
+            🎤 Start AI Interview
+        </button>
+
+        <button class="btn btn-secondary" onclick="document.getElementById('resume').click()">
+            📄 Upload Resume
+        </button>
+
+        <div class="ai-orb"></div>
+
+    </section>
+
+
+    <!-- STATS -->
+
+    <section class="grid">
+
+        <div class="card">
+            <div class="stat-title">Interview Readiness</div>
+            <div class="stat-number">84%</div>
+            <div class="progress">
+                <div class="progress-bar" style="width:84%"></div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="stat-title">Communication</div>
+            <div class="stat-number">82%</div>
+            <div class="progress">
+                <div class="progress-bar" style="width:82%"></div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="stat-title">Technical</div>
+            <div class="stat-number">87%</div>
+            <div class="progress">
+                <div class="progress-bar" style="width:87%"></div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="stat-title">Confidence</div>
+            <div class="stat-number">78%</div>
+            <div class="progress">
+                <div class="progress-bar" style="width:78%"></div>
+            </div>
+        </div>
+
+    </section>
+
+
+    <!-- CONTENT -->
+
+    <section class="content-grid">
+
+        <div class="card">
+
+            <div class="section-title">
+                Recommended Practice
+            </div>
+
+            <div class="recommendation">
+
+                <div>
+                    <strong>Java Full Stack Interview</strong><br>
+                    <small>Technical • 15 questions</small>
+                </div>
+
+                <span class="badge">Recommended</span>
+
+            </div>
+
+            <div class="recommendation">
+
+                <div>
+                    <strong>Communication Challenge</strong><br>
+                    <small>Speak for 60 seconds</small>
+                </div>
+
+                <span class="badge">Improve</span>
+
+            </div>
+
+            <div class="recommendation">
+
+                <div>
+                    <strong>Project Interview</strong><br>
+                    <small>Based on your resume</small>
+                </div>
+
+                <span class="badge">New</span>
+
+            </div>
+
+            <button class="btn btn-primary" onclick="openInterview()">
+                Start Recommended Practice
+            </button>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="section-title">
+                Interview Readiness
+            </div>
+
+            <div class="score-container">
+
+                <div class="score-circle">
+                    <strong>84</strong>
+                </div>
+
+                <div>
+                    <strong>You're doing great!</strong>
+
+                    <p style="color:#9298ad;margin-top:8px;line-height:1.5">
+                        Your technical skills are strong.
+                        Focus next on concise answers and
+                        reducing filler words.
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- PROGRESS -->
+
+    <section class="card" style="margin-top:20px">
+
+        <div class="section-title">
+            Your Progress
+        </div>
+
+        <div style="height:180px;display:flex;align-items:end;gap:15px">
+
+            <div style="height:40%;flex:1;background:#7c5cff;border-radius:8px"></div>
+            <div style="height:48%;flex:1;background:#7c5cff;border-radius:8px"></div>
+            <div style="height:57%;flex:1;background:#7c5cff;border-radius:8px"></div>
+            <div style="height:65%;flex:1;background:#7c5cff;border-radius:8px"></div>
+            <div style="height:74%;flex:1;background:#7c5cff;border-radius:8px"></div>
+            <div style="height:84%;flex:1;background:#00d4ff;border-radius:8px"></div>
+
+        </div>
+
+        <div style="display:flex;justify-content:space-between;color:#9298ad;font-size:12px;margin-top:10px">
+            <span>Week 1</span>
+            <span>Week 2</span>
+            <span>Week 3</span>
+            <span>Week 4</span>
+            <span>Week 5</span>
+            <span>Today</span>
+        </div>
+
+    </section>
+
+
+    <!-- RESUME -->
+
+    <section class="card" style="margin-top:20px">
+
+        <div class="section-title">
+            Resume & Job Description
+        </div>
+
+        <p style="color:#9298ad">
+            Upload your resume so InterviewAI can create personalized
+            questions based on your actual experience.
+        </p>
+
+        <label class="upload-area">
+
+            <input id="resume" type="file" accept=".pdf,.doc,.docx">
+
+            <div style="font-size:35px">📄</div>
+
+            <strong>Drop your resume here</strong>
+
+            <p style="color:#9298ad;margin-top:8px">
+                PDF, DOC or DOCX
+            </p>
+
+        </label>
+
+    </section>
+
+</main>
+
+
+<!-- INTERVIEW MODAL -->
+
+<div class="modal" id="interviewModal">
+
+    <div class="modal-box">
+
+        <div class="modal-header">
+
+            <div>
+                <h2>Start Your AI Interview</h2>
+
+                <p style="color:#9298ad;margin-top:6px">
+                    Your interview will adapt to your resume and job description.
+                </p>
+            </div>
+
+            <div class="close" onclick="closeInterview()">×</div>
+
+        </div>
+
+
+        <h3 style="margin-bottom:12px">
+            Choose Interview Type
+        </h3>
+
+        <div class="interview-options">
+
+            <div class="option selected">
+                <h3>💼 Full Mock</h3>
+                <p>Complete HR + technical interview</p>
+            </div>
+
+            <div class="option">
+                <h3>💻 Technical</h3>
+                <p>Technology and role-specific questions</p>
+            </div>
+
+            <div class="option">
+                <h3>🧑‍💼 HR</h3>
+                <p>Behavioral and HR questions</p>
+            </div>
+
+            <div class="option">
+                <h3>🚀 Project</h3>
+                <p>Questions about your projects</p>
+            </div>
+
+            <div class="option">
+                <h3>🗣️ Communication</h3>
+                <p>Improve speaking and confidence</p>
+            </div>
+
+            <div class="option">
+                <h3>💻 Coding</h3>
+                <p>Practice coding interview questions</p>
+            </div>
+
+        </div>
+
+
+        <h3 style="margin:25px 0 12px">
+            Difficulty
+        </h3>
+
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+
+            <button class="btn btn-secondary">Beginner</button>
+            <button class="btn btn-primary">Intermediate</button>
+            <button class="btn btn-secondary">Advanced</button>
+            <button class="btn btn-secondary">Expert</button>
+
+        </div>
+
+
+        <h3 style="margin:25px 0 12px">
+            Interviewer
+        </h3>
+
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+
+            <button class="btn btn-secondary">Friendly</button>
+            <button class="btn btn-primary">Professional</button>
+            <button class="btn btn-secondary">Strict</button>
+            <button class="btn btn-secondary">Technical</button>
+
+        </div>
+
+
+        <div style="margin-top:30px;padding:18px;background:rgba(255,255,255,.04);border-radius:15px">
+
+            <strong>🎤 Live Voice Interview</strong>
+
+            <p style="color:#9298ad;margin-top:6px">
+                Talk naturally with your AI interviewer using real-time voice.
+            </p>
+
+        </div>
+
+
+        <button
+            class="btn btn-primary"
+            style="width:100%;margin-top:20px"
+            onclick="startLiveInterview()">
+
+            🎙️ Start Live Interview
+
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- LIVE INTERVIEW MODAL -->
+
+<div class="modal" id="liveModal">
+
+    <div class="modal-box live">
+
+        <div class="modal-header">
+
+            <div style="text-align:left">
+                <strong>Java Full Stack Developer</strong>
+
+                <p style="color:#9298ad">
+                    Question 1 / 10
+                </p>
+            </div>
+
+            <div class="close" onclick="endInterview()">×</div>
+
+        </div>
+
+
+        <div class="live-orb"></div>
+
+        <div style="color:#00d4ff">
+            ● AI Interviewer is listening
+        </div>
+
+
+        <div class="wave">
+
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+
+        </div>
+
+
+        <div class="question">
+            Tell me about yourself and walk me through
+            your experience as a developer.
+        </div>
+
+
+        <p style="color:#9298ad">
+            Speak naturally. Your AI interviewer will listen
+            and ask follow-up questions based on your answer.
+        </p>
+
+
+        <div class="controls">
+
+            <button class="btn btn-secondary">
+                🔇 Mute
+            </button>
+
+            <button class="mic" onclick="toggleMic()">
+                🎙️
+            </button>
+
+            <button class="btn btn-secondary" onclick="endInterview()">
+                End
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+/* INTERVIEW MODAL */
+
+function openInterview() {
+    document.getElementById("interviewModal").style.display = "flex";
+}
+
+function closeInterview() {
+    document.getElementById("interviewModal").style.display = "none";
+}
+
+function startLiveInterview() {
+
+    document.getElementById("interviewModal").style.display = "none";
+
+    document.getElementById("liveModal").style.display = "flex";
+
+}
+
+
+/* END INTERVIEW */
+
+function endInterview() {
+
+    document.getElementById("liveModal").style.display = "none";
+
+    alert(
+        "Interview completed!\\n\\n" +
+        "Overall Score: 84/100\\n" +
+        "Communication: 82/100\\n" +
+        "Technical: 87/100\\n" +
+        "Confidence: 78/100"
+    );
+
+}
+
+
+/* MICROPHONE */
+
+let listening = false;
+
+function toggleMic() {
+
+    listening = !listening;
+
+    if(listening) {
+
+        alert(
+            "Microphone activated.\\n\\n" +
+            "For the real application, connect this button " +
+            "to your Speech-to-Text / Realtime Voice API."
+        );
+
+    }
+
+}
+
+
+/* FILE UPLOAD */
+
+document.getElementById("resume").addEventListener("change", function() {
+
+    if(this.files.length > 0) {
+
+        alert(
+            "Resume selected: " +
+            this.files[0].name +
+            "\\n\\nConnect this upload to your backend " +
+            "for AI resume parsing."
+        );
+
+    }
+
+});
+
+
+/* INTERVIEW OPTIONS */
+
+document.querySelectorAll(".option").forEach(option => {
+
+    option.addEventListener("click", () => {
+
+        document
+            .querySelectorAll(".option")
+            .forEach(o => o.classList.remove("selected"));
+
+        option.classList.add("selected");
+
+    });
+
+});
+
+</script>
+
+</body>
+</html>
+```
